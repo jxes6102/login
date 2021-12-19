@@ -120,7 +120,17 @@
 
     function login() {
         FB.login(function(response) {
-            /*console.log(response);*/
+            console.log(response);
+            if (response.status === "connected") {
+                FB.api('/me', {
+                    'fields': 'id,name,email,picture'
+                }, function(response) {
+                    console.log(response);
+                });
+            }
+        }, {
+            scope: 'email',
+            auth_type: 'rerequest'
         });
     }
 
