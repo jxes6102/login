@@ -55,6 +55,8 @@
             idTokenDecode = parseJwt(res.data.id_token) // 把結果的id_token做解析
             console.log(tokenResult)
             console.log(idTokenDecode)
+            document.getElementById('status').innerHTML =
+                'Thanks for logging in LINE, ' + idTokenDecode.name + '!'
         })
     }
 
@@ -111,7 +113,7 @@
         FB.api('/me', function(response) {
             console.log('Successful login for: ' + response.name);
             document.getElementById('status').innerHTML =
-                'Thanks for logging in, ' + response.name + '!';
+                'Thanks for logging in FB, ' + response.name + '!';
         });
     }
 </script>
