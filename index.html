@@ -117,13 +117,26 @@
                 'Thanks for logging in FB, ' + response.name + '!';
         });
     }
+
+    function login() {
+        FB.login(function(response) {
+            /*console.log(response);*/
+        });
+    }
+
+    function logout() {
+        FB.logout(function(response) {
+            /*console.log(response)*/
+        });
+    }
 </script>
 
 <body>
     <button onclick="Auth()">LINE登入</button>
     <br>
-    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-    </fb:login-button>
+
+    <button onclick="loginfb()">登入fb</button>
+    <button onclick="logoutfb()">登出fb</button>
     <br>
     <div id="statusfb">
     </div>
