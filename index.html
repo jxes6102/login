@@ -129,7 +129,7 @@
                 FB.api('/me', {
                     'fields': 'id,name,email,picture'
                 }, function(response) {
-                    console.log("fb", response);
+                    console.log("fb 登入成功", response);
                 });
             }
         }, {
@@ -138,9 +138,9 @@
         });
     }
 
-    function logout() {
+    function logoutfb() {
         FB.logout(function(response) {
-            /*console.log(response)*/
+            console.log("fb 登出成功", response)
         });
     }
 </script>
