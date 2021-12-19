@@ -19,8 +19,7 @@
     }
     var query = location.href; // 接網址的參數
     var codes, tokenResult, idTokenDecode
-    document.getElementById('statusline').innerHTML = 'Please log line' +
-        'into this webpage.';
+
     if (query.indexOf('?') != -1) {
         //之後去分割字串把分割後的字串放進陣列中
         var ary1 = query.split('?');
@@ -129,6 +128,7 @@
     <div id="statusfb">
     </div>
     <div id="statusline">
+        Please log line into this webpage.
     </div>
 </body>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
