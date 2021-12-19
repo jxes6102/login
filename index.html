@@ -38,25 +38,26 @@
         //取得id值
         codes = ary3[1];
 
-    }
-    let options = Qs.stringify({ // POST的參數  用Qs是要轉成form-urlencoded 因為LINE不吃JSON格式
-        grant_type: 'authorization_code',
-        code: codes,
-        redirect_uri: "https://jxes6102.github.io/login/index.html",
-        client_id: "1656734224",
-        client_secret: "b1c3002d8737a6a2eabf15b16542b977"
-    })
+        let options = Qs.stringify({ // POST的參數  用Qs是要轉成form-urlencoded 因為LINE不吃JSON格式
+            grant_type: 'authorization_code',
+            code: codes,
+            redirect_uri: "https://jxes6102.github.io/login/index.html",
+            client_id: "1656734224",
+            client_secret: "b1c3002d8737a6a2eabf15b16542b977"
+        })
 
-    axios.post('https://api.line.me/oauth2/v2.1/token', options, {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    }).then(res => {
-        tokenResult = res.data // 回傳的結果
-        idTokenDecode = parseJwt(res.data.id_token) // 把結果的id_token做解析
-        console.log(tokenResult)
-        console.log(idTokenDecode)
-    })
+        axios.post('https://api.line.me/oauth2/v2.1/token', options, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(res => {
+            tokenResult = res.data // 回傳的結果
+            idTokenDecode = parseJwt(res.data.id_token) // 把結果的id_token做解析
+            console.log(tokenResult)
+            console.log(idTokenDecode)
+        })
+    }
+
 
     function parseJwt(token) {
         var base64Url = token.split('.')[1];
