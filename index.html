@@ -87,13 +87,15 @@
         }
     }
 
-
-    function checkLoginState() { // Called when a person is finished with the Login Button.
-        FB.getLoginStatus(function(response) { // See the onlogin handler
-            statusChangeCallback(response);
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                console.log('你已經登入囉')
+            } else {
+                login()
+            }
         });
     }
-
 
     window.fbAsyncInit = function() {
         FB.init({
@@ -118,6 +120,8 @@
         });
     }
 
+
+
     function login() {
         FB.login(function(response) {
             console.log(response);
@@ -125,7 +129,7 @@
                 FB.api('/me', {
                     'fields': 'id,name,email,picture'
                 }, function(response) {
-                    console.log(response);
+                    console.log("fb", response);
                 });
             }
         }, {
@@ -145,7 +149,7 @@
     <button onclick="Auth()">LINE登入</button>
     <br>
 
-    <button onclick="loginfb()">登入fb</button>
+    <button onclick="checkLoginState()">登入fb</button>
     <button onclick="logoutfb()">登出fb</button>
     <br>
     <div id="statusfb">
