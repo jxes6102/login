@@ -151,35 +151,79 @@
 
 <body>
     <div id="all">
-        <div class="container">
-            <div class="row pt-2">
-                <div class="col-12">
-                    <button class="btn btn-success" onclick="Auth()">LINE登入</button>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-12 ">
-                    <button class="btn btn-primary" onclick="checkLoginState()">登入fb</button>
-                    <button class="btn btn-primary" onclick="logoutfb()">登出fb</button>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-12">
-                    <div id="statusfb">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3">
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <button class="btn btn-success" onclick="Auth()">LINE登入</button>
+                        </div>
                     </div>
-                    <div id="statusline">
-                        Please log line into this webpage.
+                    <div class="row mt-2">
+                        <div class="col-12 ">
+                            <button class="btn btn-primary" onclick="checkLoginState()">登入fb</button>
+                            <button class="btn btn-primary" onclick="logoutfb()">登出fb</button>
+                        </div>
                     </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div id="statusfb">
+                            </div>
+                            <div id="statusline">
+                                Please log line into this webpage.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 border rounded border-secondary mt-2">
+                    <div class="row">
+                        <h4 class="m-3">XX，你好</h4>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-3">
+                            <h5 class="float-right">取貨電話:</h5>
+                        </div>
+                        <div class="col-9">
+                            <input onkeyup="value=this.value.replace(/\D+/g,'')" class="element" type="text">
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-3">
+                            <h5 class="float-right">取貨分店:</h5>
+                        </div>
+                        <div class="col-9">
+                            <select class="element" name="" id="">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-12  ">
+                            <button class="btn btn-info float-right">送出</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+
                 </div>
             </div>
         </div>
     </div>
 </body>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+</script>
 <style>
     #all {
         height: 100vh;
         width: 100vw;
+    }
+    
+    .element {
+        width: 70%;
     }
 </style>
 
