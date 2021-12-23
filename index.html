@@ -122,7 +122,6 @@
                     'fields': 'id,name,email,picture'
                 }, function(response) {
                     console.log("fb 登入成功", response);
-                    consoe.log(response.name)
                     $("#hello").text(response.name + "，你好!")
                 });
             }
