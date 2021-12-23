@@ -29,20 +29,10 @@
     if (query.indexOf('?') != -1) {
         //之後去分割字串把分割後的字串放進陣列中
         var ary1 = query.split('?');
-        //此時ary1裡的內容為：
-        //https://jxes6102.github.io/login/index.html
-        //code=d2NoreNjJuS4MbkglrOO&state=123456789
-        //下一步把後方傳遞的每組資料各自分割
+
         var ary2 = ary1[1].split('&');
-        //此時ary2裡的內容為：
-        //code=d2NoreNjJuS4MbkglrOO
-        //state=123456789
-        //最後如果我們要找id的資料就直接取ary[0]下手，name的話就是ary[1]
+
         var ary3 = ary2[0].split('=');
-        //此時ary3裡的內容為：
-        //code
-        //d2NoreNjJuS4MbkglrOO
-        //取得id值
         codes = ary3[1];
 
         let options = Qs.stringify({ // POST的參數  用Qs是要轉成form-urlencoded 因為LINE不吃JSON格式
@@ -62,8 +52,8 @@
             idTokenDecode = parseJwt(res.data.id_token) // 把結果的id_token做解析
             console.log(tokenResult)
             console.log(idTokenDecode)
-            document.getElementById('statusline').innerHTML =
-                'Thanks for logging in LINE, ' + idTokenDecode.name + '!'
+                // document.getElementById('statusline').innerHTML =
+                //     'Thanks for logging in LINE, ' + idTokenDecode.name + '!'
         })
     }
 
@@ -88,12 +78,13 @@
         if (response.status === 'connected') { // Logged into your webpage and Facebook.
             testAPI();
         } else { // Not logged into your webpage or we are unable to tell.
-            document.getElementById('statusfb').innerHTML = 'Please log fb' +
-                'into this webpage.';
+            // document.getElementById('statusfb').innerHTML = 'Please log fb' +
+            //     'into this webpage.';
         }
     }
 
     function checkLoginState() {
+        logoutfb()
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
                 console.log('你已經登入囉')
@@ -121,8 +112,8 @@
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
             console.log('Successful login for: ' + response.name);
-            document.getElementById('statusfb').innerHTML =
-                'Thanks for logging in FB, ' + response.name + '!';
+            // document.getElementById('statusfb').innerHTML =
+            //     'Thanks for logging in FB, ' + response.name + '!';
         });
     }
 
@@ -155,27 +146,33 @@
             <div class="row">
                 <div class="col-3">
                     <div class="row pt-2">
-                        <div class="col-12">
-                            <button class="btn btn-success" onclick="Auth()">LINE登入</button>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
                         <div class="col-12 ">
-                            <button class="btn btn-primary" onclick="checkLoginState()">登入fb</button>
-                            <button class="btn btn-primary" onclick="logoutfb()">登出fb</button>
+                            <h5 class="text-left">登入:</h5>
                         </div>
                     </div>
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <button id="linebg" class="btn btn-success" onclick="Auth()"></button>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-12 ">
+                            <button id="fbg" class="btn btn-primary" onclick="checkLoginState()"></button>
+                            <!-- <button class="btn btn-primary" onclick="logoutfb()">登出fb</button> -->
+                        </div>
+                    </div>
+
                     <div class="row mt-2">
                         <div class="col-12">
-                            <div id="statusfb">
+                            <!-- <div id="statusfb">
                             </div>
                             <div id="statusline">
                                 Please log line into this webpage.
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
-                <div class="col-6 border rounded border-secondary mt-2">
+                <div class="col-6 border border-2 rounded border-secondary mt-2">
                     <div class="row">
                         <h4 class="m-3">XX，你好</h4>
                     </div>
@@ -184,7 +181,7 @@
                             <h5 class="float-right">取貨電話:</h5>
                         </div>
                         <div class="col-9">
-                            <input onkeyup="value=this.value.replace(/\D+/g,'')" class="element" type="text">
+                            <input id="phone" onkeyup="value=this.value.replace(/\D+/g,'')" class="element" type="text">
                         </div>
                     </div>
                     <div class="row mt-1">
@@ -192,17 +189,25 @@
                             <h5 class="float-right">取貨分店:</h5>
                         </div>
                         <div class="col-9">
-                            <select class="element" name="" id="">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
+                            <select id="branch" class="element" name="">
+                                <option value="1">義成</option>
+                                <option value="2">宜蘭</option>
+                                <option value="3">五結</option>
+                                <option value="4">女中</option>
+                                <option value="5">北成</option>
+                                <option value="6">中正</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-1">
-                        <div class="col-12  ">
-                            <button class="btn btn-info float-right">送出</button>
+                        <div class="col-11">
+                            <button id="send" class="btn btn-info float-right">送出</button>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    <div id="null" class="row mb-1">
+                        <div class="col-12 ">
+                            <h4 class="text-center text-danger">電話不能輸入空值</h4>
                         </div>
                     </div>
                 </div>
@@ -215,6 +220,16 @@
 </body>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 <script>
+    $("#null").hide()
+    $("#send").on("click", function() {
+        console.log($("#branch :checked").text());
+        console.log($("#phone").val());
+        if ($("#phone").val() == "") {
+            $("#null").show()
+        } else {
+            $("#null").hide()
+        }
+    });
 </script>
 <style>
     #all {
@@ -224,6 +239,28 @@
     
     .element {
         width: 70%;
+    }
+    
+    .border-2 {
+        border-width: 2px !important;
+    }
+    
+    #none {
+        display: none;
+    }
+    
+    #linebg {
+        width: 100%;
+        height: 40px;
+        background: url("img/linebar.png") no-repeat;
+        background-size: 100% 100%;
+    }
+    
+    #fbg {
+        width: 100%;
+        height: 40px;
+        background: url("img/fbar.png") no-repeat;
+        background-size: 100% 100%;
     }
 </style>
 
