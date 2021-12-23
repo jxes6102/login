@@ -52,8 +52,7 @@
             idTokenDecode = parseJwt(res.data.id_token) // 把結果的id_token做解析
             console.log(tokenResult)
             console.log(idTokenDecode)
-                // document.getElementById('statusline').innerHTML =
-                //     'Thanks for logging in LINE, ' + idTokenDecode.name + '!'
+            $("#hello").text(idTokenDecode.name + "，你好!");
         })
     }
 
@@ -84,7 +83,6 @@
     }
 
     function checkLoginState() {
-        logoutfb()
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
                 console.log('你已經登入囉')
@@ -112,8 +110,7 @@
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
             console.log('Successful login for: ' + response.name);
-            // document.getElementById('statusfb').innerHTML =
-            //     'Thanks for logging in FB, ' + response.name + '!';
+            $("#hello").text(response.name + "，你好!");
         });
     }
 
@@ -125,6 +122,8 @@
                     'fields': 'id,name,email,picture'
                 }, function(response) {
                     console.log("fb 登入成功", response);
+                    consoe.log(response.name)
+                    $("#hello").text(response.name + "，你好!")
                 });
             }
         }, {
@@ -172,9 +171,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 border border-2 rounded border-secondary mt-2">
+                <div class="col-5 border border-2 rounded border-secondary mt-2">
                     <div class="row">
-                        <h4 class="m-3">XX，你好</h4>
+                        <h4 id="hello" class="m-3">XX，你好</h4>
                     </div>
                     <div class="row mt-1">
                         <div class="col-3">
@@ -211,7 +210,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
 
                 </div>
             </div>
